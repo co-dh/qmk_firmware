@@ -1,14 +1,13 @@
 #include "ergodox_ez.h"
 #include "debug.h"
 #include "action_layer.h"
+#include "keymap_steno.h"
 #include "version.h"
-
+#include "sendchar.h"
+#include "virtser.h"
 
 #include "keymap_german.h"
-
 #include "keymap_nordic.h"
-
-
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
@@ -21,7 +20,7 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [0] = KEYMAP(
-               KC_GRAVE        ,KC_1       ,KC_2           ,KC_3     ,KC_4      ,KC_5      ,KC_TRANSPARENT ,
+               KC_GRAVE        ,KC_1       ,KC_2           ,KC_3     ,KC_4      ,KC_5      ,TG(3) ,
                KC_TAB          ,KC_Q       ,KC_W           ,KC_F     ,KC_P      ,KC_G      ,KC_EQUAL       ,
                KC_ESCAPE       ,KC_A       ,KC_R           ,KC_S     ,KC_T      ,KC_D      ,
                KC_LSHIFT       ,KC_Z       ,KC_X           ,KC_C     ,KC_V      ,KC_B      ,KC_TRANSPARENT ,
@@ -80,6 +79,77 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                KC_TRANSPARENT ,
                KC_TRANSPARENT ,KC_N           ,KC_M
                ),
+// TxBolt Codes
+#define Sl 0b00000001
+#define Tl 0b00000010
+#define Kl 0b00000100
+#define Pl 0b00001000
+#define Wl 0b00010000
+#define Hl 0b00100000
+#define Rl 0b01000001
+#define Al 0b01000010
+#define Ol 0b01000100
+#define X  0b01001000
+#define Er 0b01010000
+#define Ur 0b01100000
+#define Fr 0b10000001
+#define Rr 0b10000010
+#define Pr 0b10000100
+#define Br 0b10001000
+#define Lr 0b10010000
+#define Gr 0b10100000
+#define Tr 0b11000001
+#define Sr 0b11000010
+#define Dr 0b11000100
+#define Zr 0b11001000
+#define NM 0b11010000
+#define GRPMASK 0b11000000
+#define GRP0 0b00000000
+#define GRP1 0b01000000
+#define GRP2 0b10000000
+#define GRP3 0b11000000
+/* Keymap 3: TxBolt (Serial)
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * | BKSPC  |      |      |      |      |      | TG   |           |      |      |      |      |      |      |        |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * |        |      |   #  |   #  |   #  |   #  | *    |           |  *   |   #  |   #  |   #  |   #  |   #  |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |      |   S  |   T  |   P  |  H   |------|           |------|   F  |   P  |   L  |   T  |   D  |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |      |   S  |   K  |   W  |   R  | *    |           |  *   |   R  |   B  |   G  |   S  |   Z  |        |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |      |      |      |      |      |                                       |      |      |      |      |      |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        |      |      |       |      |      |
+ *                                 ,------|------|------|       |------+------+------.
+ *                                 |      |      |      |       |      |      |      |
+ *                                 |   A  |   O  |------|       |------|   E  |   U  |
+ *                                 |      |      |      |       |      |      |      |
+ *                                 `--------------------'       `--------------------'
+ */
+// TxBolt over Serial
+[3] = KEYMAP(
+       KC_BSPC, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_TRNS,
+       KC_NO,   KC_NO,   M(NM),   M(NM),   M(NM),   M(NM),   M(X),
+       KC_NO,   KC_NO,   M(Sl),   M(Tl),   M(Pl),   M(Hl),
+       KC_NO,   KC_NO,   M(Sl),   M(Kl),   M(Wl),   M(Rl),   M(X),
+       KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+                                           KC_NO,   KC_NO,
+                                                    KC_NO,
+                                  M(Al),   M(Ol),   KC_NO,
+    // right hand
+       KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+       M(X),   M(NM),   M(NM),   M(NM),   M(NM),   M(NM),    KC_NO,
+               M(Fr),   M(Pr),   M(Lr),   M(Tr),   M(Dr),   KC_NO,
+       M(X),    M(Rr),   M(Br),   M(Gr),   M(Sr),   M(Zr),    KC_NO,
+                          KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+       KC_NO,   KC_NO,
+       KC_NO,
+       KC_NO,   M(Er),   M(Ur)
+),
+
 
 };
 
@@ -87,50 +157,52 @@ const uint16_t PROGMEM fn_actions[] = {
   [1] = ACTION_LAYER_TAP_TOGGLE(1)
 };
 
-// leaving this in place for compatibilty with old keymaps cloned and re-compiled.
+uint8_t chord[4] = {0,0,0,0};
+uint8_t pressed_count = 0;
+
+void send_chord(void)
+{
+  for(uint8_t i = 0; i < 4; i++)
+  {
+    if(chord[i])
+      virtser_send(chord[i]);
+  }
+  virtser_send(0);
+}
+
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
-      switch(id) {
-        case 0:
-        if (record->event.pressed) {
-          SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-        }
-        break;
-      }
-    return MACRO_NONE;
+  // MACRODOWN only works in this function
+
+  if (record->event.pressed) {
+    uint8_t grp = (id & GRPMASK) >> 6;
+    chord[grp] |= id;
+  }
+  else {
+    if (pressed_count == 0) {
+      send_chord();
+      chord[0] = chord[1] = chord[2] = chord[3] = 0;
+    }
+  }
+  return MACRO_NONE;
 };
+
 
 void matrix_init_user(void) {
-#ifdef RGBLIGHT_COLOR_LAYER_0
-  rgblight_setrgb(RGBLIGHT_COLOR_LAYER_0);
-#endif
+  steno_set_mode(STENO_MODE_BOLT); // or STENO_MODE_BOLT
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    // dynamically generate these.
-    case EPRM:
-      if (record->event.pressed) {
-        eeconfig_init();
-      }
-      return false;
-      break;
-    case VRSN:
-      if (record->event.pressed) {
-        SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-      }
-      return false;
-      break;
-    case RGB_SLD:
-      if (record->event.pressed) {
-        //rgblight_mode(1);
-      }
-      return false;
-      break;
-
-  }
+bool process_record_user(uint16_t keycode, keyrecord_t *record)
+{
+  // We need to track keypresses in all modes, in case the user
+  // changes mode whilst pressing other keys.
+  if (record->event.pressed)
+    pressed_count++;
+  else
+    pressed_count--;
   return true;
 }
+
 
 uint32_t layer_state_set_user(uint32_t state) {
 
