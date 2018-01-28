@@ -29,6 +29,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         ErgoDox EZ
 #define DESCRIPTION     QMK keyboard firmware for Ergodox EZ
 
+#define FORCE_NKRO
+
 /* key matrix size */
 #define MATRIX_ROWS 14
 #define MATRIX_ROWS_PER_SIDE (MATRIX_ROWS / 2)
