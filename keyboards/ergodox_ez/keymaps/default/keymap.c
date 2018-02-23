@@ -31,25 +31,46 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                KC_DELETE       ,
                KC_TRANSPARENT  ,KC_BSPACE  ,ALT_T(KC_SPACE)
                ),
-  // 7 7 6 7 5 2 1 3
-  [1] = KEYMAP(
-               KC_TRANSPARENT ,KC_TRANSPARENT ,KC_TRANSPARENT ,KC_TRANSPARENT ,KC_TRANSPARENT ,KC_TRANSPARENT ,KC_TRANSPARENT ,
-               KC_TRANSPARENT ,KC_TRANSPARENT ,KC_TRANSPARENT ,KC_E           ,KC_R           ,KC_T           ,KC_TRANSPARENT ,
-               KC_TRANSPARENT ,KC_TRANSPARENT ,KC_S           ,KC_D           ,KC_F           ,KC_G           ,
-               KC_TRANSPARENT ,KC_TRANSPARENT ,KC_TRANSPARENT ,KC_TRANSPARENT ,KC_TRANSPARENT ,KC_TRANSPARENT ,KC_TRANSPARENT ,
-               KC_TRANSPARENT ,KC_TRANSPARENT ,TO(0)          ,KC_TRANSPARENT ,KC_TRANSPARENT ,
-               KC_TRANSPARENT ,KC_TRANSPARENT ,
-               KC_TRANSPARENT ,
-               KC_TRANSPARENT ,KC_TRANSPARENT ,KC_TRANSPARENT ,
 
-               KC_TRANSPARENT ,KC_TRANSPARENT ,KC_TRANSPARENT ,KC_TRANSPARENT ,KC_TRANSPARENT ,KC_TRANSPARENT ,KC_TRANSPARENT ,
-               KC_TRANSPARENT ,KC_Y           ,KC_U           ,KC_I           ,KC_O           ,KC_P           ,KC_TRANSPARENT ,
-               KC_TRANSPARENT ,KC_J           ,KC_K           ,KC_L           ,KC_SCOLON      ,KC_TRANSPARENT ,
-               KC_TRANSPARENT ,KC_N           ,KC_TRANSPARENT ,KC_TRANSPARENT ,KC_TRANSPARENT ,KC_TRANSPARENT ,KC_TRANSPARENT ,
-               KC_TRANSPARENT ,KC_TRANSPARENT ,KC_TRANSPARENT ,KC_TRANSPARENT ,KC_TRANSPARENT ,
-               KC_TRANSPARENT ,KC_TRANSPARENT ,
-               KC_TRANSPARENT ,
-               KC_TRANSPARENT ,KC_TRANSPARENT ,KC_TRANSPARENT
+  [1] = KEYMAP(
+               KC_TRNS            , KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS ,
+               KC_TRNS            , KC_TRNS , STN_NUM , STN_NUM , STN_NUM , STN_NUM , STN_ST1 ,
+               KC_TRNS            , KC_TRNS , STN_S1  , STN_TL  , STN_PL  , STN_HL  ,
+               KC_TRNS            , KC_TRNS , STN_S2  , STN_KL  , STN_WL  , STN_RL  , STN_ST2 ,
+               KC_TRNS            , KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS ,
+               KC_TRNS            , KC_TRNS ,
+               KC_TRNS            ,
+               STN_A              , STN_O   , KC_TRNS ,
+
+               KC_TRNS            , KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS ,
+               STN_ST1            , STN_NUM , STN_NUM , STN_NUM , STN_NUM , STN_NUM , KC_TRNS ,
+                           STN_FR , STN_PR  , STN_LR  , STN_TR  , STN_DR  , KC_TRNS ,
+               STN_ST2            , STN_RR  , STN_BR  , STN_GR  , STN_SR  , STN_ZR  , KC_TRNS ,
+               KC_TRNS            , KC_TRNS ,KC_TRNS  , KC_TRNS , KC_TRNS ,
+               KC_TRNS            , KC_TRNS ,
+               KC_TRNS            ,
+               KC_TRNS            , STN_E   , STN_U
+               ),
+
+  // 7 7 6 7 5 2 1 3
+  [2] = KEYMAP(
+               KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,
+               KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_E           ,KC_R           ,KC_T           ,KC_TRNS ,
+               KC_TRNS ,KC_TRNS ,KC_S           ,KC_D           ,KC_F           ,KC_G           ,
+               KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,
+               KC_TRNS ,KC_TRNS ,TO(0)          ,KC_TRNS ,KC_TRNS ,
+               KC_TRNS ,KC_TRNS ,
+               KC_TRNS ,
+               KC_TRNS ,KC_TRNS ,KC_TRNS ,
+
+               KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,
+               KC_TRNS ,KC_Y           ,KC_U           ,KC_I           ,KC_O           ,KC_P           ,KC_TRNS ,
+               KC_TRNS ,KC_J           ,KC_K           ,KC_L           ,KC_SCOLON      ,KC_TRNS ,
+               KC_TRNS ,KC_N           ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,
+               KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,
+               KC_TRNS ,KC_TRNS ,
+               KC_TRNS ,
+               KC_TRNS ,KC_TRNS ,KC_TRNS
                ),
 
 /* Keymap 2: TxBolt (Serial)
@@ -72,32 +93,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |   A  |   O  |------|       |------|   E  |   U  |
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
+ 7767 5213
  */
-
+  /*
   [2] = KEYMAP(
-               KC_BSPC , KC_NO     ,   KC_NO   ,   KC_NO   ,   KC_NO   ,   KC_NO   ,   KC_TRNS ,
-               KC_NO   ,   KC_NO   ,   STN_NUM ,   STN_NUM ,   STN_NUM ,   STN_NUM ,   STN_ST1 ,
-               KC_NO   ,   KC_NO   ,   STN_S1  ,   STN_TL  ,  STN_PL   ,   STN_HL  ,
-               KC_NO   ,   KC_NO   ,   STN_S2  ,   STN_KL  ,   STN_WL  ,   STN_RL  ,   STN_ST2 ,
-               KC_NO   ,   KC_NO   ,   KC_NO   ,   KC_NO   ,   KC_NO   ,
-               KC_NO   ,   KC_NO   ,
-               KC_NO   ,
-               STN_A  ,   STN_O  ,   KC_NO   ,
+               KC_TRNS ,   KC_TRNS ,   KC_TRNS   ,   KC_TRNS   ,   KC_TRNS   ,   KC_TRNS , KC_TRNS,
+               KC_TRNS   , STN_NUM ,   STN_NUM ,   STN_NUM ,   STN_NUM ,   STN_ST1 , KC_TRNS,
+               KC_TRNS   , STN_S1  ,   STN_TL  ,   STN_PL   ,  STN_HL  , KC_TRNS,
+               KC_TRNS   , STN_S2  ,   STN_KL  ,   STN_WL  ,   STN_RL  ,   STN_ST2 , KC_TRNS,
+               KC_TRNS   , KC_TRNS   , KC_TRNS,   KC_TRNS, KC_TRNS,
+               KC_TRNS   , KC_TRNS   ,
+               KC_TRNS   ,
+               STN_A  ,   STN_O  ,   KC_TRNS   ,
                // right hand
-               KC_NO   ,    KC_NO  ,   KC_NO   ,   KC_NO   ,   KC_NO   ,   KC_NO   ,   KC_NO   ,
-               STN_ST1 ,   STN_NUM ,   STN_NUM ,   STN_NUM ,   STN_NUM ,   STN_NUM ,    KC_NO  ,
-                           STN_FR  ,   STN_PR  ,   STN_LR  ,   STN_TR  ,   STN_DR  ,   KC_NO   ,
-               STN_ST2 ,   STN_RR ,   STN_BR  ,   STN_GR  ,   STN_SR  ,   STN_ZR  ,    KC_NO  ,
-               KC_NO   ,   KC_NO   ,   KC_NO   ,   KC_TRNS ,   KC_NO   ,
-               KC_NO   ,   KC_NO   ,
-               KC_NO   ,
-               KC_NO   ,   STN_E  ,   STN_U
+               KC_TRNS   ,   KC_TRNS  ,KC_TRNS   , KC_TRNS   , KC_TRNS   ,   KC_TRNS   ,   KC_TRNS,
+               KC_TRNS,    KC_NO,   STN_NUM ,   STN_NUM ,   STN_NUM ,   STN_NUM ,   STN_NUM ,
+                           STN_ST1 ,  STN_FR  ,   STN_PR  ,   STN_LR  ,   STN_TR  ,   STN_DR  ,
+               KC_TRNS,    STN_ST2 ,   STN_RR ,   STN_BR  ,   STN_GR  ,   STN_SR  ,   STN_ZR  ,
+               KC_TRNS   , KC_TRNS   ,KC_TRNS   ,   KC_TRNS ,   KC_TRNS   ,
+               KC_TRNS   ,   KC_TRNS   ,
+               KC_TRNS   ,
+               KC_TRNS   ,   STN_E  ,   STN_U
                ),
 
+  */
 };
 
 void matrix_init_user(void) {
-  steno_set_mode(STENO_MODE_BOLT); // or STENO_MODE_BOLT
+  steno_set_mode(STENO_MODE_GEMINI); // or STENO_MODE_BOLT
 };
 
 uint32_t layer_state_set_user(uint32_t state) {

@@ -3,7 +3,7 @@
 
 #include QMK_KEYBOARD_CONFIG_H
 
-#define FORCE_NKRO
+//#define FORCE_NKRO
 #define PREVENT_STUCK_MODIFIERS
 
 #undef TAPPING_TERM
