@@ -18,16 +18,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                KC_PGUP         ,KC_PSCREEN ,TG(1)          ,KC_LEFT  ,KC_RIGHT  ,
                KC_LGUI         ,KC_HOME    ,
                KC_END          ,
-               CTL_T(KC_SPACE) ,KC_ENTER   ,KC_TRANSPARENT ,
+               CTL_T(KC_SPACE) ,KC_ENTER   ,MO(2) ,
                // right
                KC_TRANSPARENT  ,KC_6       ,KC_7           ,KC_8     ,KC_9      ,KC_0      ,KC_MINUS       ,
                KC_LBRACKET     ,KC_J       ,KC_L           ,KC_U     ,KC_Y      ,KC_SCOLON ,KC_BSLASH      ,
                KC_H            ,KC_N       ,KC_E           ,KC_I     ,KC_O      ,KC_QUOTE  ,
                KC_RBRACKET     ,KC_K       ,KC_M           ,KC_COMMA ,KC_DOT    ,KC_SLASH  ,KC_LSHIFT      ,
                KC_DOWN         ,KC_UP      ,KC_TRANSPARENT ,TG(2)    ,KC_PGDOWN ,
-               KC_INSERT       ,KC_LCTL    ,
+               KC_INSERT       ,TG(1),
                KC_DELETE       ,
-               KC_TRANSPARENT  ,KC_BSPACE  ,ALT_T(KC_SPACE)
+               MO(2)  ,KC_BSPACE  ,ALT_T(KC_SPACE)
     ),
 
 // TxBolt Codes
@@ -80,6 +80,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                KC_TRNS            ,
                KC_TRNS            , M(Er)  , M(Ur)
                ),
+//77675213
+// symbols for steno
+  [2] = KEYMAP(KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,RSFT(KC_5),
+               KC_TRNS,KC_HOME,RSFT(KC_1),RSFT(KC_2),RSFT(KC_3),RSFT(KC_4),
+               KC_TRNS,KC_END,KC_GRAVE,KC_EQUAL,KC_MINUS,KC_TRNS,KC_TRNS,
+               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+               KC_TRNS,KC_TRNS,
+               KC_TRNS,
+               KC_TRNS,KC_TRNS,KC_TRNS,
+
+               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+               LSFT(KC_6),KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+               RSFT(KC_7),RSFT(KC_8),LSFT(KC_9),RSFT(KC_0),KC_QUOTE,KC_TRNS,
+               KC_LEFT,KC_DOWN,KC_UP,KC_RIGHT,KC_TRNS,KC_BSLASH,KC_TRNS,
+               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+               KC_TRNS,KC_TRNS,
+               KC_TRNS,
+               KC_TRNS,KC_TRNS,KC_TRNS),
+
+
+/* querty
   [2] = KEYMAP(
                KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,
                KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_E           ,KC_R           ,KC_T           ,KC_TRNS ,
@@ -99,29 +121,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                KC_TRNS ,
                KC_TRNS ,KC_TRNS ,KC_TRNS
                ),
+*/
 
-
-
-/*
-[1] = KEYMAP(
-       KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-       KC_NO,   M(NM),   M(NM),   M(NM),   M(NM),   M(NM),  KC_NO,
-       KC_NO,   M(Sl),   M(Tl),   M(Pl),   M(Hl),   M(X),
-       KC_NO,   M(Sl),   M(Kl),   M(Wl),   M(Rl),   M(X),   KC_NO,
-       KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-                                           KC_NO,   KC_NO,
-                                                    KC_NO,
-                                  M(Al),   M(Ol),   KC_NO,
-    // right hand
-       KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-       KC_TRNS,  M(NM),   M(NM),   M(NM),   M(NM),   M(NM),   M(NM),
-                 M(X),    M(Fr),   M(Pr),   M(Lr),   M(Tr),   M(Dr),
-       KC_NO,    M(X),    M(Rr),   M(Br),   M(Gr),   M(Sr),   M(Zr),
-                          KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-       KC_NO,   KC_NO,
-       KC_NO,
-       KC_NO,   M(Er),   M(Ur)
-),
+/* steno, not confortable as the squeezed one.
+    [2] = KEYMAP(
+        KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,
+        KC_TRNS,   M(NM),   M(NM),   M(NM),   M(NM),   M(NM),  KC_TRNS,
+        KC_TRNS,   M(Sl),   M(Tl),   M(Pl),   M(Hl),   M(X),
+        KC_TRNS,   M(Sl),   M(Kl),   M(Wl),   M(Rl),   M(X),   KC_TRNS,
+        KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,
+                                            KC_TRNS,   KC_TRNS,
+                                                        KC_TRNS,
+                                    M(Al),   M(Ol),   KC_TRNS,
+        // right hand
+        KC_TRNS,    KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,
+        KC_TRNS,  M(NM),   M(NM),   M(NM),   M(NM),   M(NM),   M(NM),
+                    M(X),    M(Fr),   M(Pr),   M(Lr),   M(Tr),   M(Dr),
+        KC_TRNS,    M(X),    M(Rr),   M(Br),   M(Gr),   M(Sr),   M(Zr),
+                            KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,
+        KC_TRNS,   KC_TRNS,
+        KC_TRNS,
+        KC_TRNS,   M(Er),   M(Ur)
+    ),
 */
 };
 
