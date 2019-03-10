@@ -53,57 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 
-// TxBolt Codes
-#define Sl 0b00000001
-#define Tl 0b00000010
-#define Kl 0b00000100
-#define Pl 0b00001000
-#define Wl 0b00010000
-#define Hl 0b00100000
-#define Rl 0b01000001
-#define Al 0b01000010
-#define Ol 0b01000100
-#define X  0b01001000
-#define Er 0b01010000
-#define Ur 0b01100000
-#define Fr 0b10000001
-#define Rr 0b10000010
-#define Pr 0b10000100
-#define Br 0b10001000
-#define Lr 0b10010000
-#define Gr 0b10100000
-#define Tr 0b11000001
-#define Sr 0b11000010
-#define Dr 0b11000100
-#define Zr 0b11001000
-#define NM 0b11010000
-#define GRPMASK 0b11000000
-#define GRP0 0b00000000
-#define GRP1 0b01000000
-#define GRP2 0b10000000
-#define GRP3 0b11000000
-/*
-// TxBolt over Serial
-  [1] = LAYOUT_ergodox(
-               KC_TRNS            , KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS ,
-               KC_TRNS            , KC_TRNS , M(NM) , M(NM) , M(NM) , M(NM) , M(X) ,
-               KC_TRNS            , KC_TRNS , M(Sl)  , M(Tl)  , M(Pl)  , M(Hl)  ,
-               KC_TRNS            , KC_TRNS , M(Sl)  , M(Kl)  , M(Wl)  , M(Rl)  , M(X) ,
-               KC_TRNS            , KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS ,
-               KC_TRNS            , KC_TRNS ,
-               KC_TRNS            ,
-               M(Al)             , M(Ol)  , KC_TRNS ,
 
-               KC_TRNS            , KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS ,
-               M(X)            , M(NM) , M(NM) , M(NM) , M(NM) , M(NM) , KC_TRNS ,
-               M(Fr) , M(Pr)  , M(Lr)  , M(Tr)  , M(Dr)  , KC_TRNS ,
-               M(X)            , M(Rr)  , M(Br)  , M(Gr)  , M(Sr)  , M(Zr)  , KC_TRNS ,
-               KC_TRNS            , KC_TRNS ,KC_TRNS  , KC_TRNS , KC_TRNS ,
-               KC_TRNS            , KC_TRNS ,
-               KC_TRNS            ,
-               KC_TRNS            , M(Er)  , M(Ur)
-               ),
-               */
 //77675213
 // TxBolt over Serial
 [1] = LAYOUT_ergodox(
@@ -125,7 +75,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_NO,
        KC_NO,   STN_E,   STN_U
 ),
-
 
 };
 
