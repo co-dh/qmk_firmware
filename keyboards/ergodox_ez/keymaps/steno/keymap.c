@@ -12,9 +12,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [0] = KEYMAP(  // layer 0 : default
         // left hand
                KC_GRAVE        ,KC_1       ,KC_2           ,KC_3     ,KC_4      ,KC_5      ,KC_TRANSPARENT ,
-               KC_TAB          ,KC_Q       ,KC_W           ,KC_F     ,KC_P      ,KC_G      ,KC_EQUAL       ,
-               KC_ESCAPE       ,KC_A       ,KC_R           ,KC_S     ,KC_T      ,KC_D      ,
-               KC_LSHIFT       ,KC_Z       ,KC_X           ,KC_C     ,KC_V      ,KC_B      ,KC_TRANSPARENT ,
+               KC_TAB          ,KC_Q       ,KC_W           ,KC_F     ,KC_P      ,KC_V      ,KC_EQUAL       ,
+               KC_ESCAPE       ,KC_A       ,KC_R           ,KC_S     ,KC_T      ,KC_G      ,
+               KC_LSHIFT       ,KC_Z       ,KC_X           ,KC_C     ,KC_D      ,KC_B      ,KC_TRANSPARENT ,
                KC_PGUP         ,KC_PSCREEN ,TG(1)          ,KC_LEFT  ,KC_RIGHT  ,
                KC_LGUI         ,KC_HOME    ,
                KC_END          ,
@@ -22,8 +22,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                // right
                KC_TRANSPARENT  ,KC_6       ,KC_7           ,KC_8     ,KC_9      ,KC_0      ,KC_MINUS       ,
                KC_LBRACKET     ,KC_J       ,KC_L           ,KC_U     ,KC_Y      ,KC_SCOLON ,KC_BSLASH      ,
-               KC_H            ,KC_N       ,KC_E           ,KC_I     ,KC_O      ,KC_QUOTE  ,
-               KC_RBRACKET     ,KC_K       ,KC_M           ,KC_COMMA ,KC_DOT    ,KC_SLASH  ,KC_LSHIFT      ,
+               KC_M            ,KC_N       ,KC_E           ,KC_I     ,KC_O      ,KC_QUOTE  ,
+               KC_RBRACKET     ,KC_K       ,KC_H           ,KC_COMMA ,KC_DOT    ,KC_SLASH  ,KC_LSHIFT      ,
                KC_DOWN         ,KC_UP      ,KC_TRANSPARENT ,TG(2)    ,KC_PGDOWN ,
                KC_INSERT       ,TG(1),
                KC_DELETE       ,
