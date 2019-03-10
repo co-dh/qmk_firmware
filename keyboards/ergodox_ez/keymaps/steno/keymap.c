@@ -1,15 +1,14 @@
 #include QMK_KEYBOARD_H
 #include "debug.h"
 #include "action_layer.h"
-#include "sendchar.h"
-#include "virtser.h"
+#include "keymap_steno.h"
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
-[0] = KEYMAP(  // layer 0 : default
+[0] = LAYOUT_ergodox(  // layer 0 : colemak
         // left hand
                KC_GRAVE        ,KC_1       ,KC_2           ,KC_3     ,KC_4      ,KC_5      ,KC_TRANSPARENT ,
                KC_TAB          ,KC_Q       ,KC_W           ,KC_F     ,KC_P      ,KC_V      ,KC_EQUAL       ,
@@ -28,7 +27,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                KC_INSERT       ,TG(1),
                KC_DELETE       ,
                MO(2)  ,KC_BSPACE  ,ALT_T(KC_SPACE)
+
     ),
+
+
+/* Keymap 3: TxBolt (Serial)
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * | BKSPC  |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * |        |   #  |   #  |   #  |   #  |   #  |      |           |      |   #  |   #  |   #  |   #  |   #  |   #    |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |   S  |   T  |   P  |   H  |   *  |------|           |------|   *  |   F  |   P  |   L  |   T  |   D    |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |   S  |   K  |   W  |   R  |   *  |      |           |      |   *  |   R  |   B  |   G  |   S  |   Z    |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |      |      |      |      |      |                                       |      |      |      |      |      |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        |      |      |       |      |      |
+ *                                 ,------|------|------|       |------+------+------.
+ *                                 |      |      |      |       |      |      |      |
+ *                                 |   A  |   O  |------|       |------|   E  |   U  |
+ *                                 |      |      |      |       |      |      |      |
+ *                                 `--------------------'       `--------------------'
+ */
 
 // TxBolt Codes
 #define Sl 0b00000001
@@ -59,9 +82,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define GRP1 0b01000000
 #define GRP2 0b10000000
 #define GRP3 0b11000000
-
+/*
 // TxBolt over Serial
-  [1] = KEYMAP(
+  [1] = LAYOUT_ergodox(
                KC_TRNS            , KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS ,
                KC_TRNS            , KC_TRNS , M(NM) , M(NM) , M(NM) , M(NM) , M(X) ,
                KC_TRNS            , KC_TRNS , M(Sl)  , M(Tl)  , M(Pl)  , M(Hl)  ,
@@ -80,115 +103,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                KC_TRNS            ,
                KC_TRNS            , M(Er)  , M(Ur)
                ),
+               */
 //77675213
-// symbols for steno
-  [2] = KEYMAP(KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,RSFT(KC_5),
-               KC_TRNS,KC_HOME,RSFT(KC_1),RSFT(KC_2),RSFT(KC_3),RSFT(KC_4),
-               KC_TRNS,KC_END,KC_GRAVE,KC_EQUAL,KC_MINUS,KC_TRNS,KC_TRNS,
-               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-               KC_TRNS,KC_TRNS,
-               KC_TRNS,
-               KC_TRNS,KC_TRNS,KC_TRNS,
+// TxBolt over Serial
+[1] = LAYOUT_ergodox(
+       KC_BSPC, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+       KC_NO,   STN_N1,  STN_N2,  STN_N3,  STN_N4,  STN_N5,  KC_NO,
+       KC_NO,   STN_S1,  STN_TL,  STN_PL,  STN_HL,  STN_ST1,
+       KC_NO,   STN_S2,  STN_KL,  STN_WL,  STN_RL,  STN_ST2, KC_NO,
+       KC_NO,   KC_NO,   TG(1),   KC_NO,   KC_NO,
+                                           KC_NO,   KC_NO,
+                                                    KC_NO,
+                                  STN_A,   STN_O,   KC_NO,
+    // right hand
+       KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+       KC_TRNS,  STN_N6,  STN_N7,  STN_N8,  STN_N9,  STN_NA,  STN_NB,
+                 STN_ST3, STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR,
+       KC_NO,    STN_ST4, STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR,
+                          KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+       KC_NO,   KC_NO,
+       KC_NO,
+       KC_NO,   STN_E,   STN_U
+),
 
-               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-               LSFT(KC_6),KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-               RSFT(KC_7),RSFT(KC_8),LSFT(KC_9),RSFT(KC_0),KC_QUOTE,KC_TRNS,
-               KC_LEFT,KC_DOWN,KC_UP,KC_RIGHT,KC_TRNS,KC_BSLASH,KC_TRNS,
-               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-               KC_TRNS,KC_TRNS,
-               KC_TRNS,
-               KC_TRNS,KC_TRNS,KC_TRNS),
 
-
-/* querty
-  [2] = KEYMAP(
-               KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,
-               KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_E           ,KC_R           ,KC_T           ,KC_TRNS ,
-               KC_TRNS ,KC_TRNS ,KC_S     ,KC_D           ,KC_F           ,KC_G           ,
-               KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,
-               KC_TRNS ,KC_TRNS ,TO(0)          ,KC_TRNS ,KC_TRNS ,
-               KC_TRNS ,KC_TRNS ,
-               KC_TRNS ,
-               KC_TRNS ,KC_TRNS ,KC_TRNS ,
-
-               KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,
-               KC_TRNS ,KC_Y           ,KC_U           ,KC_I           ,KC_O           ,KC_P           ,KC_TRNS ,
-               KC_TRNS ,KC_J           ,KC_K           ,KC_L           ,KC_SCOLON      ,KC_TRNS ,
-               KC_TRNS ,KC_N           ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,
-               KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,KC_TRNS ,
-               KC_TRNS ,KC_TRNS ,
-               KC_TRNS ,
-               KC_TRNS ,KC_TRNS ,KC_TRNS
-               ),
-*/
-
-/* steno, not confortable as the squeezed one.
-    [2] = KEYMAP(
-        KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,
-        KC_TRNS,   M(NM),   M(NM),   M(NM),   M(NM),   M(NM),  KC_TRNS,
-        KC_TRNS,   M(Sl),   M(Tl),   M(Pl),   M(Hl),   M(X),
-        KC_TRNS,   M(Sl),   M(Kl),   M(Wl),   M(Rl),   M(X),   KC_TRNS,
-        KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,
-                                            KC_TRNS,   KC_TRNS,
-                                                        KC_TRNS,
-                                    M(Al),   M(Ol),   KC_TRNS,
-        // right hand
-        KC_TRNS,    KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,
-        KC_TRNS,  M(NM),   M(NM),   M(NM),   M(NM),   M(NM),   M(NM),
-                    M(X),    M(Fr),   M(Pr),   M(Lr),   M(Tr),   M(Dr),
-        KC_TRNS,    M(X),    M(Rr),   M(Br),   M(Gr),   M(Sr),   M(Zr),
-                            KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,
-        KC_TRNS,   KC_TRNS,
-        KC_TRNS,
-        KC_TRNS,   M(Er),   M(Ur)
-    ),
-*/
-};
-
-uint8_t chord[4] = {0,0,0,0};
-uint8_t pressed_count = 0;
-
-void send_chord(void)
-{
-  for(uint8_t i = 0; i < 4; i++)
-  {
-    if(chord[i])
-      virtser_send(chord[i]);
-  }
-  virtser_send(0);
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record)
-{
-  // We need to track keypresses in all modes, in case the user
-  // changes mode whilst pressing other keys.
-  if (record->event.pressed)
-    pressed_count++;
-  else
-    pressed_count--;
-  return true;
-}
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-
-  if (record->event.pressed) {
-    uint8_t grp = (id & GRPMASK) >> 6;
-    chord[grp] |= id;
-  }
-  else {
-    if (pressed_count == 0) {
-      send_chord();
-      chord[0] = chord[1] = chord[2] = chord[3] = 0;
-    }
-  }
-  return MACRO_NONE;
 };
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
+    steno_set_mode(STENO_MODE_BOLT); // or STENO_MODE_GEMINI
 };
 
 // Runs constantly in the background, in a loop.
